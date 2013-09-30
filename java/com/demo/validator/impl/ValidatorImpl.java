@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Path.Node;
+import javax.validation.Path.ParameterNode;
+import javax.validation.Path.PropertyNode;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -31,7 +34,10 @@ public class ValidatorImpl {
 					.iterator(); iter.hasNext();) {
 				ConstraintViolation<Car> voilation = iter.next();
 				print(voilation.getMessage());
+				Iterator<Node> it = voilation.getPropertyPath().iterator();
+				PropertyNode nde = it.next().as(PropertyNode.class);
 				print(voilation.getPropertyPath().toString());
+				print(nde.getName());
 			}
 
 		} catch (Exception e) {
